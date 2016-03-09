@@ -1,7 +1,5 @@
 ############################################################
-# Dockerfile for weka with X-Forwarding
-#
-# Based on ..
+# Dockerfile for weka with wekaServer (as master)
 ############################################################
 
 FROM gliderlabs/alpine:3.3
