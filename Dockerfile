@@ -19,6 +19,6 @@ ENV CLASSPATH /weka_server/weka-3-7-13/weka.jar
 RUN java weka.core.WekaPackageManager -install-package wekaServer
 
 EXPOSE 8085
-CMD ["java", "-Djava.awt.headless=true", "weka.Run", "WekaServer", "-host", "WekaServer", "-port", "8085", "-slots", "4"]
+CMD ["java", "-Djava.awt.headless=true", "weka.Run", "WekaServer", "-slots", "4"]
 
 
