@@ -4,14 +4,21 @@
 # Based on ..
 ############################################################
 
-FROM dorowu/ubuntu-desktop-lxde-vnc
+FROM gliderlabs/alpine:3.3
 MAINTAINER Kevin Rojczyk <kevin.roj@p8h.de>
-RUN apt-get update
-RUN apt-get install -y openjdk-7-jre
-RUN apt-get install -y wget zip tar
-RUN wget -qO- -O /home/ubuntu/Desktoptmp.zip https://prdownloads.sourceforge.net/weka/weka-3-7-13.zip
-RUN unzip /home/ubuntu/Desktoptmp.zip
-RUN rm /home/ubuntu/Desktoptmp.zip
-RUN chown -R ubuntu:ubuntu /home/ubuntu/Desktop/weka-3-7-13
+
+RUN apk --no-cache add openjdk8-jre wget zip
+
+WORKDIR /weka_server
+RUN wget -qO- -O tmp.zip https://prdownloads.sourceforge.net/weka/weka-3-7-13.zip
+RUN unzip tmp.zip
+RUN rm tmp.zip 
+WORKDIR /weka_server/weka-3-7-13
+RUN rm -r wekaexamples.zip weka-src.jar WekaManual.pdf
+RUN export CLASSPATH=$CLASSPATH:/weka_server/weka-3-7-13/weka.jar
+RUN java weka.core.WekaPackageManager -install-package wekaServer
+
+EXPOSE 8085
+CMD ["java", "-Djava.awt.headless=true", "weka.Run", "WekaServer", "-host hostname", "-port 8085", "-slots 4"]
 
 
