@@ -17,7 +17,6 @@ WORKDIR /weka_server/weka-3-7-13
 RUN rm -r wekaexamples.zip weka-src.jar WekaManual.pdf
 RUN export CLASSPATH=$CLASSPATH:/weka_server/weka-3-7-13/weka.jar
 RUN export
-RUN setenv CLASSPATH $CLASSPATH:/weka_server/weka-3-7-13/weka.jar
 RUN java weka.core.WekaPackageManager -install-package wekaServer
 
 EXPOSE 8085
