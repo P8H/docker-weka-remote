@@ -11,11 +11,12 @@ RUN apk --no-cache add openjdk8-jre wget zip
 
 WORKDIR /weka_server
 RUN wget -qO- -O tmp.zip https://prdownloads.sourceforge.net/weka/weka-3-7-13.zip
-RUN unzip tmp.zip
+RUN unzip -q tmp.zip
 RUN rm tmp.zip 
 WORKDIR /weka_server/weka-3-7-13
 RUN rm -r wekaexamples.zip weka-src.jar WekaManual.pdf
 RUN export CLASSPATH=$CLASSPATH:/weka_server/weka-3-7-13/weka.jar
+RUN setenv CLASSPATH $CLASSPATH:/weka_server/weka-3-7-13/weka.jar
 RUN java weka.core.WekaPackageManager -install-package wekaServer
 
 EXPOSE 8085
